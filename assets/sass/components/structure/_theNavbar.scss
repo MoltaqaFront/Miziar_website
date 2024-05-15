@@ -72,6 +72,7 @@
         img {
           width: 85px;
           height: 85px;
+          object-fit: contain;
         }
       }
       // ********** Navbar Routes Styles
@@ -230,6 +231,7 @@
         img {
           width: 85px;
           height: 85px;
+          object-fit: contain;
         }
       }
       // ********** Navbar Routes Styles
@@ -315,13 +317,13 @@
   }
 }
 .logo_wrapper {
-    max-width: 120px;
+  max-width: 120px;
 }
 
 .logo_wrapper a {
-    width: 100%;
+  width: 100%;
 }
 
 .logo_wrapper a img {
-    width: 100%;
+  width: 100%;
 }

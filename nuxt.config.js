@@ -6,7 +6,7 @@ import enLocales from './locales/en-US.js'
 // import colors from 'vuetify/es5/util/colors'
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
-  target: 'static',
+  target: 'server',
   ssr: true,
   head: {
     htmlAttrs: {
@@ -59,7 +59,6 @@ export default {
     { src: '@/plugins/font-awesome.js' },
     // ****** END:: IMPORTING FONT AWESOME FILE ****** //
 
-
     { src: '@/plugins/sweetalert.js' },
 
     { src: '@/plugins/slick-carousel.js', ssr: false },
@@ -96,20 +95,21 @@ export default {
     [
       'nuxt-i18n',
       {
-        locales: [{
-          name: 'عربي ',
-          code: 'ar',
-          iso: 'ar-AR',
-          file: 'ar-AR.js',
-          dir: 'rtl',
-        },
-        {
-          name: 'English',
-          code: 'en',
-          iso: 'en-US',
-          file: 'en-US.js',
-          dir: 'ltr',
-        },
+        locales: [
+          {
+            name: 'عربي ',
+            code: 'ar',
+            iso: 'ar-AR',
+            file: 'ar-AR.js',
+            dir: 'rtl',
+          },
+          {
+            name: 'English',
+            code: 'en',
+            iso: 'en-US',
+            file: 'en-US.js',
+            dir: 'ltr',
+          },
         ],
         lazy: true,
         langDir: 'locales/',
@@ -156,16 +156,7 @@ export default {
   // },
   router: {
     mode: 'history',
-    base: '/website/',
-    extendRoutes(routes) {
-      routes.push({
-        path: '*',
-        redirect: '/',
-      }, {
-        path: '/en',
-        redirect: '/',
-      })
-    },
+    base: '/',
   },
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
@@ -192,9 +183,9 @@ export default {
     transpile: ['vee-validate/dist/rules'],
   },
 
-  // server: {
-  //   port: 5000,
-  // },
+  server: {
+    port: 5025,
+  },
   // env: {
   //   baseUrl: process.env.baseUrl || '',
   // },
