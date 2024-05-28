@@ -36,7 +36,7 @@
 
                       <ValidationProvider rules="required" :name="$t('contact.phone')" v-slot="{ errors }">
                         <div class="form-group">
-                          <input type="text" v-model="form.phone" :placeholder="$t('contact.phone')" />
+                          <input type="text" v-model="form.mobile" :placeholder="$t('contact.phone')" />
                           <span class="validation_message">{{ errors[0] }}</span>
                         </div>
 
@@ -101,9 +101,9 @@ export default {
       form: {
         name: "",
         email: "",
-        phone: "",
+        mobile: "",
         message: "",
-        type: "contact"
+        message_type: "inquiry"
       },
 
 
@@ -137,11 +137,11 @@ export default {
     async sendData() {
 
       try {
-        await this.$axios.$post('api/contact_us', this.form).then(response => {
+        await this.$axios.$post('static-pages/contact-us', this.form).then(response => {
           this.form.name = '';
           this.form.email = '';
-          this.form.phone = '';
-          this.form.message_title = '';
+          this.form.mobile = '';
+          // this.form.message_type = '';
           this.form.message = '';
 
           this.$refs.observer.reset();

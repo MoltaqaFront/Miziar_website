@@ -4,7 +4,7 @@
 
     <div class="container">
       <div class="page_title">
-        <h2>{{ terms_title }}</h2>
+         <h2>{{ $t("nav.policy") }}</h2>
       </div>
 
       <div class="page_content">
@@ -64,10 +64,10 @@ export default {
   methods:{
     async getData() {
     try {
-      return await this.$axios.get(`api/pages/3`).then(response => {
+      return await this.$axios.get(`static-pages/privacy-policy`).then(response => {
         this.isLoading=true;
-        this.terms_title = response.data.data.title;
-        this.terms_content = response.data.data.content;
+        // this.terms_title = response.data.data.title;
+        this.terms_content = response.data.data;
         // console.log(response.data.body.homepage.privacy_policy.title)
       }).catch(error => {
         console.log(error)

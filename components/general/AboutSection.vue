@@ -44,7 +44,7 @@
           data-aos-delay="600"
           data-aos-duration="1000"
         >
-          {{ terms_title }}
+          <!-- {{ terms_title }} -->
         </h4>
         <h2
           class="section_title"
@@ -62,7 +62,7 @@
           data-aos="fade"
           data-aos-delay="800"
           data-aos-duration="1000"
-          v-html="terms_content"
+          v-html="terms_title"
         ></div>
       </div>
       <!-- End:: Section Text -->
@@ -84,9 +84,9 @@ export default {
   methods:{
     async getData() {
     try {
-      return await this.$axios.get(`api/pages/2`).then(response => {
-        this.terms_title = response.data.data.title;
-        this.terms_content = response.data.data.content;
+      return await this.$axios.get(`static-pages/about-app`).then(response => {
+        this.terms_title = response.data.data;
+        // this.terms_content = response.data.data.content;
       console.log(response.data)
         console.log()
       }).catch(error => {

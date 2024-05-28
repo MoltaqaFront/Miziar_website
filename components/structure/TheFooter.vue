@@ -37,30 +37,30 @@
 
         <!-- Start:: Contact Info Wrapper -->
         <div class="col-lg-6 col-xl-5 d-flex justify-content-between flex-column flex-lg-row my-3">
-          <ul class="contact_info_list">
-            <!-- <li class="contact_info_item">
-              <span class="icon">
-                <i class="fa-regular fa-envelope"></i>
-              </span>
+        <ul class="contact_info_list">
 
-              <a href="mailto:info@lamsamotqana.app"><span class="value"> info@lamsamotqana.app </span></a>
-            </li> -->
-
-            <li class="contact_info_item">
+            <li class="contact_info_item" v-if="phones.length > 1">
               <span class="icon">
                 <i class="fa-solid fa-fax"></i>
               </span>
 
-              <a href="tel:0566989608"><span class="value"> 0566989608</span></a>
+              <div>
+                <span class="value" >
+                  {{   formattedPhones }}
+                </span>
+              </div>
             </li>
 
-            <li class="contact_info_item">
+
+            <li class="contact_info_item" v-if="address">
               <span class="icon">
                 <i class="fa-solid fa-location-dot"></i>
               </span>
 
-              <a href="https://goo.gl/maps/pyKsGuyD9gRBR2UC7" target="_blank"> <span class="value"> {{ $t('address') }} </span> </a>
+              <a href="https://goo.gl/maps/pyKsGuyD9gRBR2UC7" target="_blank"> <span class="value"> {{ address }}
+                </span> </a>
             </li>
+
           </ul>
 
           <!-- <ul class="social_links_list">
@@ -96,7 +96,19 @@
 <script>
 export default {
   name: "TheFooter",
-
+ data() {
+    return {
+      // watsApp: "",
+      address: "",
+      // organization_email: "",
+      phones: []
+    }
+  },
+   computed: {
+    formattedPhones() {
+      return this.phones.join(' - ');
+    }
+  },
   methods: {
     // START:: SCROLL TO SECTION
     scrollToSection(section_id) {
@@ -108,6 +120,25 @@ export default {
       }
     },
     // END:: SCROLL TO SECTION
+     async getData() {
+      try {
+        return await this.$axios.get(`static-pages/contact-us`).then(response => {
+           this.phones = Array.isArray(response.data.data.phones) ? response.data.data.phones : [];
+          // this.watsApp = response.data.data[0].value.watsApp;
+          this.address = response.data.data.address;
+          // this.organization_email = response.data.data[0].value.organization_email;
+
+        }).catch(error => {
+          console.log(error)
+        })
+      } catch (error) {
+        console.log("catch : " + error)
+      }
+    },
+
   },
+  mounted() {
+    this.getData();
+  }
 }
 </script>
