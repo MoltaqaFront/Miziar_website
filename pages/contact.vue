@@ -151,7 +151,8 @@ export default {
           this.$swal.fire({
             position: 'center',
             type: 'success',
-            text: `${response.message}`,
+            //  this.$message.success(this.$t("MESSAGES.addedSuccessfully"));
+            text: this.$t("Successfully"),
             showConfirmButton: false,
             timer: 3000
           })
@@ -164,7 +165,7 @@ export default {
           this.$swal.fire({
             position: 'center',
             type: 'error',
-            text: `${error.response.data.message}`,
+            text: this.$t("error"),
             showConfirmButton: false,
             timer: 3000
           })
