@@ -39,6 +39,14 @@
         <div class="col-lg-6 col-xl-5 d-flex justify-content-between flex-column flex-lg-row my-3">
         <ul class="contact_info_list">
 
+            <li class="contact_info_item" v-if="organization_email">
+              <span class="icon">
+                <i class="fa-regular fa-envelope"></i>
+              </span>
+
+              <a :href="'mailto:' + organization_email"><span class="value"> {{ organization_email }} </span></a>
+            </li>
+
             <li class="contact_info_item" v-if="phones.length > 1">
               <span class="icon">
                 <i class="fa-solid fa-fax"></i>
@@ -52,35 +60,80 @@
             </li>
 
 
+              <li class="contact_info_item" v-if="watsApp">
+              <span class="icon">
+                <i class="fab fa-whatsapp"></i>
+              </span>
+
+              <a :href="'https://wa.me/+' + watsApp" target="_blank"><span class="value">{{ watsApp }}</span></a>
+            </li>
+
             <li class="contact_info_item" v-if="address">
               <span class="icon">
                 <i class="fa-solid fa-location-dot"></i>
               </span>
 
-              <a href="https://goo.gl/maps/pyKsGuyD9gRBR2UC7" target="_blank"> <span class="value"> {{ address }}
+              <a href="https://goo.gl/maps/pyKsGuyD9gRBR2UC7" target="_blank"> <span class="value" v-html="address">
                 </span> </a>
             </li>
 
-          </ul>
+               <ul class="social_links_list">
 
-          <!-- <ul class="social_links_list">
-            <li class="social_links_item">
-              <a href="https://twitter.com/CaaptainOne" target="_blank" class="icon">
-                <i class="fa-brands fa-twitter"></i>
+             <li class="social_links_item" v-if="snapchat">
+              <a :href="snapchat" target="_blank" class="icon">
+                <i class="fab fa-snapchat-ghost"></i>
               </a>
             </li>
 
-            <li class="social_links_item">
-              <a href="https://www.facebook.com/Captain-one-%D9%83%D8%A7%D8%A8%D8%AA%D9%86-%D9%88%D8%A7%D9%86-100203022791919/" target="_blank" class="icon">
+           <li class="social_links_item" v-if="facebook !== 'null' ">
+              <a :href="facebook" target="_blank" class="icon">
                 <i class="fa-brands fa-square-facebook"></i>
               </a>
             </li>
 
-            <li class="social_links_item">
-              <a href="https://www.instagram.com/caaptainone/" target="_blank" class="icon">
+
+            <li class="social_links_item" v-if="instagram">
+              <a :href="instagram" target="_blank" class="icon">
                 <i class="fa-brands fa-instagram"></i>
               </a>
             </li>
+
+            <li class="social_links_item" v-if="x">
+              <a :href="x" target="_blank" class="icon">
+                <i class="fas fa-times"></i>
+              </a>
+            </li>
+
+          </ul>
+          </ul>
+
+          <!-- <ul class="social_links_list">
+
+             <li class="social_links_item" v-if="snapchat">
+              <a :href="snapchat" target="_blank" class="icon">
+                <i class="fab fa-snapchat-ghost"></i>
+              </a>
+            </li>
+
+           <li class="social_links_item" v-if="facebook !== 'null' ">
+              <a :href="facebook" target="_blank" class="icon">
+                <i class="fa-brands fa-square-facebook"></i>
+              </a>
+            </li>
+
+
+            <li class="social_links_item" v-if="instagram">
+              <a :href="instagram" target="_blank" class="icon">
+                <i class="fa-brands fa-instagram"></i>
+              </a>
+            </li>
+
+            <li class="social_links_item" v-if="x">
+              <a :href="x" target="_blank" class="icon">
+                <i class="fas fa-times"></i>
+              </a>
+            </li>
+
           </ul> -->
         </div>
         <!-- End:: Contact Info Wrapper -->
@@ -98,10 +151,14 @@ export default {
   name: "TheFooter",
  data() {
     return {
-      // watsApp: "",
+      watsApp: "",
       address: "",
-      // organization_email: "",
-      phones: []
+      organization_email: "",
+      phones: [],
+      facebook: "",
+      instagram: "",
+      snapchat: "",
+      x: ""
     }
   },
    computed: {
@@ -124,10 +181,13 @@ export default {
       try {
         return await this.$axios.get(`static-pages/contact-us`).then(response => {
            this.phones = Array.isArray(response.data.data.phones) ? response.data.data.phones : [];
-          // this.watsApp = response.data.data[0].value.watsApp;
+          this.watsApp = response.data.data.watsApp;
           this.address = response.data.data.address;
-          // this.organization_email = response.data.data[0].value.organization_email;
-
+          this.organization_email = response.data.data.email;
+          this.snapchat = response.data.data.snapchat;
+          this.facebook = response.data.data.facebook;
+          this.instagram = response.data.data.instagram;
+          this.x = response.data.data.x;
         }).catch(error => {
           console.log(error)
         })

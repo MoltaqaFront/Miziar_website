@@ -54,8 +54,8 @@
   .social_links_list {
     height: 100%;
     @include flexCenterAlignment;
-    flex-direction: column;
-    row-gap: 25px;
+    flex-direction: row;
+    gap: 35px;
     .social_links_item {
       .icon  {
         svg, i {
