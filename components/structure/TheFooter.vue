@@ -47,18 +47,17 @@
               <a :href="'mailto:' + organization_email"><span class="value"> {{ organization_email }} </span></a>
             </li>
 
-            <li class="contact_info_item" v-if="phones.length > 1">
+            <li class="contact_info_item" v-if="phones.length">
               <span class="icon">
                 <i class="fa-solid fa-fax"></i>
               </span>
 
               <div>
-                <span class="value" >
-                  {{   formattedPhones }}
+                <span class="value" v-for="(item, index) in phones" :key="'f' + index">
+                  {{ item }}
                 </span>
               </div>
             </li>
-
 
               <li class="contact_info_item" v-if="watsApp">
               <span class="icon">
@@ -77,15 +76,9 @@
                 </span> </a>
             </li>
 
-               <ul class="social_links_list">
+          <ul class="social_links_list">
 
-             <li class="social_links_item" v-if="snapchat">
-              <a :href="snapchat" target="_blank" class="icon">
-                <i class="fab fa-snapchat-ghost"></i>
-              </a>
-            </li>
-
-           <li class="social_links_item" v-if="facebook !== 'null' ">
+           <li class="social_links_item" v-if="facebook">
               <a :href="facebook" target="_blank" class="icon">
                 <i class="fa-brands fa-square-facebook"></i>
               </a>
@@ -103,6 +96,14 @@
                 <i class="fas fa-times"></i>
               </a>
             </li>
+
+
+             <li class="social_links_item" v-if="snapchat">
+              <a :href="snapchat" target="_blank" class="icon">
+                <i class="fab fa-snapchat-square"></i>
+              </a>
+            </li>
+
 
           </ul>
           </ul>
@@ -184,10 +185,10 @@ export default {
           this.watsApp = response.data.data.watsApp;
           this.address = response.data.data.address;
           this.organization_email = response.data.data.email;
-          this.snapchat = response.data.data.snapchat;
           this.facebook = response.data.data.facebook;
           this.instagram = response.data.data.instagram;
           this.x = response.data.data.x;
+          this.snapchat = response.data.data.snapchat;
         }).catch(error => {
           console.log(error)
         })
